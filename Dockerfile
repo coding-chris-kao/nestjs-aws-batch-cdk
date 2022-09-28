@@ -2,9 +2,11 @@ FROM node:latest
 
 WORKDIR /app
 
-COPY ./src ./src
-COPY package*.json tsconfig.json ./
+COPY package*.json tsconfig*.json ./
+RUN npm install -g @nestjs/cli &&\
+    npm install
 
-RUN npm install && npm run build
+COPY ./src ./src
+RUN npm run build
 
 WORKDIR /app/dist
