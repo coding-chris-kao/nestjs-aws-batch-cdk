@@ -17,18 +17,15 @@ export class BasicCommand extends CommandRunner {
     super();
   }
 
-  async run(
-    passedParam: string[],
-    options?: BasicCommandOptions,
-  ): Promise<void> {    
+  async run(args: string[], options?: BasicCommandOptions): Promise<void> {
     if (options?.boolean !== undefined && options?.boolean !== null) {
-      this.runWithBoolean(passedParam, options.boolean);
+      this.runWithBoolean(args, options.boolean);
     } else if (options?.number) {
-      this.runWithNumber(passedParam, options.number);
+      this.runWithNumber(args, options.number);
     } else if (options?.string) {
-      this.runWithString(passedParam, options.string);
+      this.runWithString(args, options.string);
     } else {
-      this.runWithNone(passedParam);
+      this.runWithNone(args);
     }
   }
 
@@ -36,7 +33,7 @@ export class BasicCommand extends CommandRunner {
     flags: '-n, --number <number>',
     description: 'A basic number parser',
   })
-  parseNumber(val: string): Number {    
+  public parseNumber(val: string): Number {
     return Number(val);
   }
 
@@ -44,7 +41,7 @@ export class BasicCommand extends CommandRunner {
     flags: '-s, --string [string]',
     description: 'A string return',
   })
-  parseString(val: string): string {
+  public parseString(val: string): string {
     return val;
   }
 
@@ -52,23 +49,23 @@ export class BasicCommand extends CommandRunner {
     flags: '-b, --boolean [boolean]',
     description: 'A boolean parser',
   })
-  parseBoolean(val: string): boolean {    
+  public parseBoolean(val: string): boolean {
     return JSON.parse(val);
   }
 
-  runWithString(param: string[], option: string): void {
+  private runWithString(param: string[], option: string): void {
     this.logger.info({ param, string: option });
   }
 
-  runWithNumber(param: string[], option: number): void {
+  private runWithNumber(param: string[], option: number): void {
     this.logger.info({ param, number: option });
   }
 
-  runWithBoolean(param: string[], option: boolean): void {
+  private runWithBoolean(param: string[], option: boolean): void {
     this.logger.info({ param, boolean: option });
   }
 
-  runWithNone(param: string[]): void {
+  private runWithNone(param: string[]): void {
     this.logger.info({ param });
   }
 }
