@@ -6,6 +6,8 @@ async function bootstrap() {
     errorHandler: (error: any) => {
       if (error?.code === 'commander.help') {
         return;
+      } else if (error?.code === 'commander.unknownCommand') {
+        return;
       }
       console.error(error);
     },
