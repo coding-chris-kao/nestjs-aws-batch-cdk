@@ -1,7 +1,5 @@
-import { Inject } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 import { Command, CommandRunner, Option } from 'nest-commander';
-import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
-import { Logger } from 'winston';
 
 interface BasicCommandOptions {
   string?: string;
@@ -11,9 +9,7 @@ interface BasicCommandOptions {
 
 @Command({ name: 'basic', description: 'A parameter parse' })
 export class BasicCommand extends CommandRunner {
-  constructor(
-    @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
-  ) {
+  constructor(private readonly logger: Logger) {
     super();
   }
 
@@ -54,18 +50,18 @@ export class BasicCommand extends CommandRunner {
   }
 
   private runWithString(param: string[], option: string): void {
-    this.logger.info({ param, string: option });
+    this.logger.log({ param, string: option });
   }
 
   private runWithNumber(param: string[], option: number): void {
-    this.logger.info({ param, number: option });
+    this.logger.log({ param, number: option });
   }
 
   private runWithBoolean(param: string[], option: boolean): void {
-    this.logger.info({ param, boolean: option });
+    this.logger.log({ param, boolean: option });
   }
 
   private runWithNone(param: string[]): void {
-    this.logger.info({ param });
+    this.logger.log({ param });
   }
 }
