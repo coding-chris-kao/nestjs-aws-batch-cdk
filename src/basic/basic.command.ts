@@ -14,15 +14,17 @@ export class BasicCommand extends CommandRunner {
   }
 
   async run(args: string[], options?: BasicCommandOptions): Promise<void> {
-    if (options?.boolean !== undefined && options?.boolean !== null) {
+    const { boolean, number, string } = options;
+    if (boolean) {
       this.runWithBoolean(args, options.boolean);
-    } else if (options?.number) {
-      this.runWithNumber(args, options.number);
-    } else if (options?.string) {
-      this.runWithString(args, options.string);
-    } else {
-      this.runWithNone(args);
     }
+    if (number) {
+      this.runWithNumber(args, options.number);
+    }
+    if (string) {
+      this.runWithString(args, options.string);
+    }
+    this.runWithNone(args);
   }
 
   @Option({
