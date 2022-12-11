@@ -14,11 +14,13 @@
     "incremental": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
+    "strict": true,
+    "noImplicitOverride": true,
     "strictNullChecks": false,
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "strict": true,
     "noFallthroughCasesInSwitch": false
-  }
+  },
+  "exclude": ["dist/**/*"]
 }
